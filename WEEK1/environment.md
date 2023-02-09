@@ -1,5 +1,14 @@
 # 1. 개발 환경
 
+## 학습 키워드
+
+- Node.js
+- NPM(Node Package Manager)
+  - package.json / package-lock.json
+  - node_modules
+  - npx
+- ES Modules vs CommonJS
+
 ## Node.js(Javascript)]
 
 Javascript는 어렵다.
@@ -36,7 +45,7 @@ fnm current
 
 ## TypeScript + React + Jest + Parcel 개발 환경 세팅
 
-* 적절한 작업 폴더를 만들고 터미널에서 VSCode를 열면 편하다.
+- 적절한 작업 폴더를 만들고 터미널에서 VSCode를 열면 편하다.
 
 ```bash
 cd study
@@ -48,7 +57,7 @@ cd 폴더명
 code .
 ```
 
-* npm 패키지를 준비하는게 첫 번째 작업이다. 
+- npm 패키지를 준비하는게 첫 번째 작업이다.
 
 ```bash
 npm init -y
@@ -58,7 +67,7 @@ npm init -y
 
 -y를 포함하지 않으면 질문들을 많이 하는데 -y를 붙이면 질문 없이 한 번에 패키지가 만들어진다.
 
-* node_modules를 통째로 커밋하는 것을 방지하기 위해 .gitignore 파일을 잊지 않고 작성해야 한다.
+- node_modules를 통째로 커밋하는 것을 방지하기 위해 .gitignore 파일을 잊지 않고 작성해야 한다.
 
 ```bash
 /node_modules/

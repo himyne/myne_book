@@ -8,12 +8,12 @@ React를 쓰면서 생각보다 많은 분들이 JSX에 대해선 자세히 모�
 
 ## 학습 키워드
 
-[x] React에서 JSX를 사용하는 목적
-[x] Syntactic sugar
-[x] React.createElement
-[x] React Element
-[x] React StrictMode
-[x] VDOM(Virtual DOM)이란?
-[x] DOM이란?
-[x] DOM과 Virtual DOM의 차이
-[x] Reconciliation(재조정) 과정은 무엇인가?
+- [x] React에서 JSX를 사용하는 목적
+- [x] Syntactic sugar
+- [x] React.createElement
+- [x] React Element
+- [x] React StrictMode
+- [x] VDOM(Virtual DOM)이란?
+- [x] DOM이란?
+- [x] DOM과 Virtual DOM의 차이
+- [x] Reconciliation(재조정) 과정은 무엇인가?

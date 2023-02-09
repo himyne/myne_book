@@ -1,5 +1,9 @@
 # 4. Testing Library
 
+- Jest
+- Describe-Context-It 패턴
+- React Testing Library
+
 ## Jest
 
 거의 모든 것을 갖춘 테스트 도구이다.
@@ -16,17 +20,17 @@ describe("add 함수는", () => {
     expect(add(1, 2)).toBe(3);
   });
 
-  context('두 개의 양수가 주어졌을 때', () => {
-    it('항상 두 개의 숫자보다 큰 값을 돌려준다', () =>{
-      expect(add(1,2)).toBeGreaterThan(2);
+  context("두 개의 양수가 주어졌을 때", () => {
+    it("항상 두 개의 숫자보다 큰 값을 돌려준다", () => {
+      expect(add(1, 2)).toBeGreaterThan(2);
     });
-  })
+  });
 
-  context('0.1과 0.2가 주어져도', () => {
-    it('이상한 값을 돌려주지 않는다', () =>{
-      expect(add(0.1,0.2)).toBe(0.3);
+  context("0.1과 0.2가 주어져도", () => {
+    it("이상한 값을 돌려주지 않는다", () => {
+      expect(add(0.1, 0.2)).toBe(0.3);
     });
-  })
+  });
 });
 ```
 
@@ -37,34 +41,34 @@ UI 테스트에 특화된 라이브러리이다. 정말 사용자가 처음부�
 간단한 테스트 코드를 만들어보자
 
 {% code title="Greeting.tsx" overflow="wrap" lineNumbers="true" %}
+
 ```javascript
-export default function Greeting({name}: {
-	name: string;
-}) {
-	return (
-		<p>Hello, {name}</p>
-	);
+export default function Greeting({ name }: { name: string }) {
+  return <p>Hello, {name}</p>;
 }
 ```
+
 {% endcode %}
 
 {% code title="Greeting.test.tsx" overflow="wrap" lineNumbers="true" %}
+
 ```javascript
-import {render, screen} from '@testing-library/react';
-import Greeting from './Greeting';
+import { render, screen } from "@testing-library/react";
+import Greeting from "./Greeting";
 
-test('Greeting', () => {
-	render(<Greeting name='world' />);
+test("Greeting", () => {
+  render(<Greeting name="world" />);
 
-  screen.getByText('Hello, world');
+  screen.getByText("Hello, world");
 
   screen.getByText(/Hello/);
   screen.queryByText(/Hi/);
-  
+
   expect(screen.queryByText(/Hi/)).toBeFalsy();
   expect(screen.queryByText(/Hi/)).not.toBeInTheDocument();
 });
 ```
+
 {% endcode %}
 
 getByText에서 정규표현식을 이용하면 글자 전체가 아닌 일부만 테스트 가능하다.
