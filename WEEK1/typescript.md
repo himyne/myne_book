@@ -1,5 +1,14 @@
 # 2. TypeScript
 
+## 학습 키워드
+
+- REPL
+- TypeScript
+  - Interface vs Type
+  - 타입 추론
+  - Union Type vs Intersection Type
+  - Optional Parameter
+
 ## REPL
 
 REPL(콘솔 환경)을 쓰고 싶다면 ts-node를 실행하면 된다.
@@ -42,9 +51,9 @@ age = "13";
 let human: {
   name: string;
   age: number;
-}
+};
 
-human = { name: '홍길동', age: 13 };
+human = { name: "홍길동", age: 13 };
 ```
 
 일반 변수나 객체 내부까지 type을 정의할 수 있다.
@@ -62,39 +71,38 @@ numbers = [1, 2, 3];
 
 ```typescript
 let anythings: any[];
-let anythings: ['hp', 256];
+let anythings: ["hp", 256];
 
 let pair: [string, number];
-pair = ['hp', 256];
+pair = ["hp", 256];
 ```
-
 
 ### 인터페이스 확장하기
 
 ```typescript
 interface Animal {
-  name: string
+  name: string;
 }
 
 interface Bear extends Animal {
-  honey: boolean
+  honey: boolean;
 }
 
-const bear = getBear()
-bear.name
-bear.honey
+const bear = getBear();
+bear.name;
+bear.honey;
 ```
 
 ### 교집합을 통하여 타입 확장하기
 
 ```typescript
 type Animal = {
-  name: string
-}
+  name: string;
+};
 
 type Bear = Animal & {
-  honey: Boolean
-}
+  honey: Boolean;
+};
 
 const bear = getBear();
 bear.name;
@@ -106,8 +114,8 @@ bear.honey;
 함수 반환값과 인자에도 타입 지정이 가능하다.
 
 ```typescript
-function getMutiply(x: number, y: number): number{
-  return x * y
+function getMutiply(x: number, y: number): number {
+  return x * y;
 }
 ```
 
@@ -124,18 +132,18 @@ y = false;
 아래와 같이 유용하게 사용 가능하다. 주로 함수에서 많이 사용한다.
 
 ```typescript
-type Category = 'food' | 'toy' | 'bag';
+type Category = "food" | "toy" | "bag";
 let c: Category;
 
-c = 'toy';
-c = 'bread'; // error
+c = "toy";
+c = "bread"; // error
 
-function fetchProducts({category}: { category: Category}) {
+function fetchProducts({ category }: { category: Category }) {
   console.log(`Fetch ${category}`);
 }
 
-fetchProducts({category: 'food'}); // Fetch food
-fetchProducts({category: 'bread'}) // error
+fetchProducts({ category: "food" }); // Fetch food
+fetchProducts({ category: "bread" }); // error
 ```
 
 ### 옵셔널 연산자
@@ -143,7 +151,7 @@ fetchProducts({category: 'bread'}) // error
 기본적으로 함수에 인자 값이 안들어오면 undefined로 설정하고 싶을 때 사용한다.
 
 ```typescript
-function add (x: number, y?: number): number{
+function add(x: number, y?: number): number {
   return x + (y || 0);
 }
 ```
@@ -151,22 +159,19 @@ function add (x: number, y?: number): number{
 인자 값이 안들어왔을 때 대안으로 더 좋은 방법으로는 인자에 기본값을 설정하는 것이다.
 
 ```typescript
-function add (x: number, y: number = 0): number{
+function add(x: number, y: number = 0): number {
   return x + y;
 }
 
-function greeting(name?: string): string{
-  return `Hello, ${name || 'world'}`;
+function greeting(name?: string): string {
+  return `Hello, ${name || "world"}`;
 }
 ```
 
 Optional Parameter는 매개변수가 객체일 때 자주 활용된다. (나이가 있을수도 있고 없을수도 있기 때문)
 
 ```typescript
-function greeting({ name, age }: {
-  name: string;
-  age?: number;  
-}): string {
+function greeting({ name, age }: { name: string; age?: number }): string {
   return age ? `${name} (${age})` : name;
 }
 ```
@@ -175,32 +180,18 @@ function greeting({ name, age }: {
 
 ```typescript
 //App.tsx
-export function App({name}: {
-  name?: string;
-}) {
-  return (
-    <p>Hello, {name || 'world'}!</p>
-  );
+export function App({ name }: { name?: string }) {
+  return <p>Hello, {name || "world"}!</p>;
 }
 //main.tsx
-import ReactDOM from 'react-dom/client';
-import {App} from './App';
+import ReactDOM from "react-dom/client";
+import { App } from "./App";
 
-const element = document.getElementById('root');
+const element = document.getElementById("root");
 
 if (element) {
   const root = ReactDOM.createRoot(element);
 
-  root.render(<App name='minhye' />);
+  root.render(<App name="minhye" />);
 }
-
 ```
-
-## 학습 키워드
-
-- REPL
-- TypeScript
-  - Interface vs Type
-  - 타입 추론
-  - Union Type vs Intersection Type
-  - Optional Parameter
