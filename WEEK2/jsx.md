@@ -11,6 +11,36 @@ JSX는 공식적인 문법은 아니고 XML처럼 ECMAScript에서 확장된 문
 
 그리고 JSX는 React에서 나왔지만 React에서만 쓰는 것은 아니다. 뷰나 다른 프레임워크에서도 쓸 수 있다고 한다.
 
+### JSX 사용하기
+
+- jsx에 표현식 포함하기
+
+[표현식인 문과 표현식이 아닌 문 구별법](https://himyne.github.io/deepdive/deepdive-05/#%ED%91%9C%ED%98%84%EC%8B%9D%EC%9D%B8-%EB%AC%B8%EA%B3%BC-%ED%91%9C%ED%98%84%EC%8B%9D%EC%9D%B4-%EC%95%84%EB%8B%8C-%EB%AC%B8-%EA%B5%AC%EB%B3%84%EB%B2%95) - 변수에 할당해봤을 때 할당되면 표현식인 문이고 안되면 표현식이 아닌 문이다.
+
+```javascript
+const name = "minhye";
+const age = 20 + 6;
+const element = (
+  <h1>
+    Hello, {name}! your age : {age}
+  </h1>
+);
+```
+
+리액트에서 중괄호 내에는 표현식인 문만 올 수 있다.
+
+그리고 jsx도 표현식이기 때문에 함수나 if 문 내에서 반환값에 올 수 있다.
+
+- jsx 속성 정의
+
+html에서 태그에 속성을 부여하듯이 하면 된다. 한 가지 다른 점은 중괄호 안에 javascript 표현식을 넣어서 속성 값을 표현할 수 있다는 것이다.
+
+```javascript
+// 태그 내 속성에 중괄호 사용 가능
+const url = "./images/minhye.jpg";
+const element = <img src={url} />;
+```
+
 ### JSX 사용 목적
 
 리액트는 mvc 중에서도 뷰만 신경쓰는 프레임워크이고 UI 관련 작업을 주로 한다.
@@ -64,6 +94,8 @@ React.createElement(Greeting, { name: "world", age: { maru: "10kg" } });
 ```
 
 Greeting처럼 태그 이름을 마음대로 설정해도 표현이 가능하다.
+
+대신 실제 리액트 프로젝트에서는 Greeting 변수를 미리 선언되어있고 Greeting이 반드시 스코프 내에 존재해야 한다.
 
 ### EX 3)
 
