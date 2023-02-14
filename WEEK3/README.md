@@ -1,7 +1,7 @@
 # 학습 키워드
 
-- [ ] REST API 와 GraphQL
-  - [ ] REST API 란 무엇인가
+- [x] REST API 와 GraphQL
+  - [x] REST API 란 무엇인가
   - [ ] GraphQL은 왜 등장했는가?
   - [ ] REST API vs GraphQL
 - [ ] JSON

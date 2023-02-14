@@ -7,27 +7,29 @@
 
 ## 시작에 앞서서 필요한 것들
 
-1. 데이터
+### 1. 데이터
 
-   백엔드에서 [JSON](https://himyne.github.io/deepdive/deepdive-43/#02-json) 형태의 데이터를 돌려주는 API를 제공한다고 가정한다.
+백엔드에서 [JSON](https://himyne.github.io/deepdive/deepdive-43/#02-json) 형태의 데이터를 돌려주는 API를 제공한다고 가정한다.
 
-   - [REST API](https://himyne.github.io/deepdive/deepdive-44/)
+- [REST API](/WEEK3/rest-api-graphql.md)
 
-     GET, POST, PUT/PATCH, DELETE (CRUD) => Resource 중심
+  GET, POST, PUT/PATCH, DELETE (CRUD) => Resource 중심
 
-   - GraphQL
+  ![Resource](/images/rest-api-resource.jpg)
 
-     그래프 자료구조
+  리소스는 위 그림과 같은 데이터를 의미한다.
 
-     Query에서 얻고자 하는 것을 지정한다.
+- [GraphQL](/WEEK3/rest-api-graphql.md)
 
-     Query(Read), Mutation(Command: Create, Update, Delete), Subscription(Event)
+  그래프 자료구조
 
-2. mockup
+  Query에서 얻고자 하는 것을 지정한다.
 
-   디자이너가 만들어 놓은 UI의 모형을 뜻한다.
+  Query(Read), Mutation(Command: Create, Update, Delete), Subscription(Event)
 
-+) REST API와 GraphQL 공부
+### 2. mockup
+
+디자이너가 만들어 놓은 UI의 모형을 뜻한다.
 
 그리고 이 데이터와 목업을 가지고 사용자가 볼 수 있도록 UI를 구성한다.
 
@@ -64,7 +66,7 @@ UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 
    </div>
    ```
 
-3. Design
+3. Atomic Design
 
 4. Information Architecture
 
@@ -74,7 +76,22 @@ UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 
 
 ## 2단계 - 정적 페이지 만들기
 
-아래는 매우 불편하지만 데이터를 가지고 대강의 틀을 만든 코드이다.
+```javascript
+[
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
+  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
+  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
+];
+```
+
+![리액트 공식 문서 mockup](/images/thinking-in-react-mockup.jpg)
+
+![강의에서 만든 demo 화면](/images/react-demo-app.jpg)
+
+아래는 매우 길고 불편하지만 위 데이터와 mockup을 가지고 대강의 틀을 만든 코드이다.
 
 ```javascript
 type Product = {
@@ -108,12 +125,6 @@ export default function App() {
         <div>
           <input type="checkbox" id="only-stock" />
           <label htmlFor="only-stock">Only show products in stock</label>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" />
-            Only show products in stock
-          </label>
         </div>
       </div>
       <table className="product-table">
@@ -153,6 +164,266 @@ export default function App() {
 }
 ```
 
-이제 이 긴 코드들을 컴포넌트로 쪼개서 리팩토링을 해줄 것이다.
+모든 코드가 App파일 안에 담겨있는데 이제 이 긴 코드들을 컴포넌트로 쪼개서 리팩토링을 해줄 것이다.
 
-+) 강의 1시간까지 정리내용, 리팩토링 한 컴포넌트 파일들 추가 예정
+먼저 아래 표시한 부분 코드의 컴포넌트를 따로 빼줄 것이다.
+
+![첫 번째 컴포넌트 분리](/images/first-component-separation.jpg)
+
+App 파일에서 지정해둔 Product 타입들도 따로 폴더를 만들어서 파일 분리 해준다.
+
+{% code title="./types/types.ts" overflow="wrap" lineNumbers="ture" %}
+
+```javascript
+interface Product = {
+  category: string,
+  price: string,
+  stocked: boolean,
+  name: string,
+};
+
+export default Product;
+```
+
+{% endcode %}
+
+{% code title="ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "./types/types";
+
+type ProductsInCategoryProps = {
+  category: string,
+  products: Product[],
+};
+
+export default function ProductsInCategory({
+  category,
+  products,
+}: ProductsInCategoryProps) {
+  const productsInCategory = products.filter(
+    (product) => product.category === category
+  );
+  return (
+    <>
+      <tr>
+        <th colSpan={2}>{category}</th>
+      </tr>
+      {productsInCategory.map((product) => {
+        <tr key={product.name}>
+          <td>{product.name}</td>
+          <td>{product.price}</td>{" "}
+        </tr>;
+      })}
+    </>
+  );
+}
+```
+
+{% endcode %}
+
+ProductsInCategory.tsx 파일도 components 폴더에 따로 만들어준 뒤 분리해주었다.
+
+그리고 map을 이용하여 반복을 할 때는 key가 필요하다.
+
+{% code title="App.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import ProductsInCategory from "./components/ProductsInCategory";
+
+import type Product from "./types/types";
+
+const products: Product[] = [
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
+  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
+  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
+];
+
+export default function App() {
+  const categories = products.reduce(
+    (acc, product) =>
+      acc.includes(product.category) ? acc : [...acc, product.category],
+    []
+  );
+  return (
+    <div className="filtered-products-container">
+      <div className="search-bar">
+        <div>
+          <input type="text" placeholder="Search..." />
+        </div>
+        <div>
+          <input type="checkbox" id="only-stock" />
+          <label htmlFor="only-stock">Only show products in stock</label>
+        </div>
+      </div>
+      <table className="product-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {categories.map((category) => (
+            <ProductsInCategory
+              key={category}
+              category={category}
+              product={products}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+```
+
+{% endcode %}
+
+남은 App파일의 <tbody> 내부가 조금 깔끔해졌다.
+
+이제 ProductInCategory 내부에서 아래 그림처럼 컴포넌트를 분리해줄 것이다.
+
+![두 번째 컴포넌트 분리](/images/second-component-separation.jpg)
+
+{% code title="ProductRow.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "../types/types";
+
+type ProductRowProps = {
+  product: Product,
+};
+
+export default function ProductRow({ product }: ProductRowProps) {
+  return (
+    <tr>
+      <td>{product.name}</td>
+      <td>{product.price}</td>
+    </tr>
+  );
+}
+```
+
+{% endcode %}
+
+{% code title="ProductCategoryRow.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+export default function ProductCategoryRow({ category }: { category: string }) {
+  return (
+    <tr>
+      <th colSpan={2}>{category}</th>
+    </tr>
+  );
+}
+```
+
+{% endcode %}
+
+{% code title="ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "../types/types";
+import ProductCategoryRow from "./ProductCategoryRow";
+import ProductRow from "./ProductRow";
+
+type ProductsInCategoryProps = {
+  category: string,
+  products: Product[],
+};
+
+export default function ProductsInCategory({
+  category,
+  products,
+}: ProductsInCategoryProps) {
+  const productsInCategory = products.filter(
+    (product) => product.category === category
+  );
+  return (
+    <>
+      <ProductCategoryRow category={category} />
+      {productsInCategory.map((product) => (
+        <ProductRow key={product.name} product={product} />
+      ))}
+    </>
+  );
+}
+```
+
+{% endcode %}
+
+이제 App 파일에서 ProductTable을 분리해줄 것이다.
+
+![세 번째 컴포넌트 분리](/images/third-component-separation.jpg)
+
+{% code title="App.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import ProductsInCategory from "./components/ProductsInCategory";
+
+import type Product from "./types/types";
+
+const products: Product[] = [
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
+  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
+  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
+];
+
+function ProductTable({ products }: { products: Product[] }) {
+  const categories = products.reduce(
+    (acc: string[], product: Product) =>
+      acc.includes(product.category) ? acc : [...acc, product.category],
+    []
+  );
+
+  return (
+    <table className="product-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {categories.map((category) => (
+          <ProductsInCategory
+            key={category}
+            category={category}
+            products={products}
+          />
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="filtered-products-container">
+      <div className="search-bar">
+        <div>
+          <input type="text" placeholder="Search..." />
+        </div>
+        <div>
+          <input type="checkbox" id="only-stock" />
+          <label htmlFor="only-stock">Only show products in stock</label>
+        </div>
+      </div>
+      <ProductTable products={products} />
+    </div>
+  );
+}
+```
+
+{% endcode %}
+
+분리한 컴포넌트들을 그림으로 그려보았다.
+
+![컴포넌트 분리 완료](/images/final-component-separation.jpg)
