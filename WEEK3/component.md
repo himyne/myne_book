@@ -172,15 +172,15 @@ export default function App() {
 
 App 파일에서 지정해둔 Product 타입들도 따로 폴더를 만들어서 파일 분리 해준다.
 
-{% code title="./types/types.ts" overflow="wrap" lineNumbers="ture" %}
+{% code title="./types/Product.ts" overflow="wrap" lineNumbers="ture" %}
 
 ```javascript
-interface Product = {
-  category: string,
-  price: string,
-  stocked: boolean,
-  name: string,
-};
+interface Product {
+  category: string;
+  price: string;
+  stocked: boolean;
+  name: string;
+}
 
 export default Product;
 ```
@@ -190,7 +190,7 @@ export default Product;
 {% code title="ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "./types/types";
+import Product from "./types/Product";
 
 type ProductsInCategoryProps = {
   category: string,
@@ -231,7 +231,7 @@ ProductsInCategory.tsx 파일도 components 폴더에 따로 만들어준 뒤 �
 ```javascript
 import ProductsInCategory from "./components/ProductsInCategory";
 
-import type Product from "./types/types";
+import Product from "./types/Product";
 
 const products: Product[] = [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -292,7 +292,7 @@ export default function App() {
 {% code title="ProductRow.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 type ProductRowProps = {
   product: Product,
@@ -327,7 +327,7 @@ export default function ProductCategoryRow({ category }: { category: string }) {
 {% code title="ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 import ProductCategoryRow from "./ProductCategoryRow";
 import ProductRow from "./ProductRow";
 
@@ -365,7 +365,7 @@ export default function ProductsInCategory({
 ```javascript
 import ProductsInCategory from "./components/ProductsInCategory";
 
-import type Product from "./types/types";
+import Product from "./types/Product";
 
 const products: Product[] = [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -434,15 +434,29 @@ export default function App() {
 
 ```javascript
 import FilterableProductTable from "./components/FilterableProductTable";
+import Product from "./types/Product";
+
+const products: Product[] = [
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
+  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
+  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
+];
 
 export default function App() {
-  return <FilterableProductTable />;
+  return (
+    <div>
+      <FilterableProductTable products={products} />
+    </div>
+  );
 }
 ```
 
 {% endcode %}
 
-{% code title="/types/types.ts" overflow="wrap" lineNumbers="true" %}
+{% code title="/types/Product.ts" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
 interface Product {
@@ -457,33 +471,21 @@ export default Product;
 
 {% endcode %}
 
-{% code title="/types/Product.ts" overflow="wrap" lineNumbers="true" %}
-
-```javascript
-import type Product from "./types";
-
-const products: Product[] = [
-  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
-  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
-  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
-  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
-  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
-  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
-];
-
-export default products;
-```
-
-{% endcode %}
-
 {% code title="/components/FilterableProductTable.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import products from "../types/Product";
 import ProductTable from "./ProductTable";
 import SearchBar from "./SearchBar";
 
-export default function FilterableProductTable() {
+import Product from "../types/Product";
+
+type FilterableProductTableProps = {
+  products: Product[],
+};
+
+export default function FilterableProductTable({
+  products,
+}: FilterableProductTableProps) {
   return (
     <div className="filtered-products-container">
       <SearchBar />
@@ -495,7 +497,7 @@ export default function FilterableProductTable() {
 
 {% endcode %}
 
-{% code title="/components/SearchBox.tsx" overflow="wrap" lineNumbers="true" %}
+{% code title="/components/SearchBar.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
 import CheckBoxField from "./CheckBoxField";
@@ -519,7 +521,11 @@ export default function SearchBar() {
 ```javascript
 import { useRef } from "react";
 
-export default function CheckBoxField({ label }: { label: string }) {
+type CheckBoxFieldProps = {
+  label: string,
+};
+
+export default function CheckBoxField({ label }: CheckBoxFieldProps) {
   const id = useRef(`checkbox-${label}`.replace(/ /g, "-").toLowerCase());
 
   return (
@@ -538,10 +544,15 @@ export default function CheckBoxField({ label }: { label: string }) {
 ```javascript
 import ProductsInCategory from "./ProductsInCategory";
 
-import type Product from "../types/types";
+import Product from "../types/Product";
+
 import selectCategories from "../util/selectCategories";
 
-export default function ProductTable({ products }: { products: Product[] }) {
+type ProductTableProps = {
+  products: Product[],
+};
+
+export default function ProductTable({ products }: ProductTableProps) {
   const categories = selectCategories(products);
 
   return (
@@ -575,7 +586,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
 {% code title="/util/selectCategories.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 export default function selectCategories(products: Product[]): string[] {
   return products.reduce((acc: string[], product: Product) => {
@@ -590,10 +601,11 @@ export default function selectCategories(products: Product[]): string[] {
 {% code title="/components/ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
 import selectProducts from "../util/selectProducts";
 import ProductCategoryRow from "./ProductCategoryRow";
 import ProductRow from "./ProductRow";
+
+import Product from "../types/Product";
 
 type ProductsInCategoryProps = {
   category: string,
@@ -621,7 +633,7 @@ export default function ProductsInCategory({
 {% code title="/util/selectProducts.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 export default function selectProducts(
   items: Product[],
@@ -650,7 +662,7 @@ export default function ProductCategoryRow({ category }: { category: string }) {
 {% code title="/components/ProductRow.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 type ProductRowProps = {
   product: Product,
