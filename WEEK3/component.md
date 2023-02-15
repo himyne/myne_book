@@ -283,7 +283,7 @@ export default function App() {
 
 {% endcode %}
 
-남은 App파일의 <tbody> 내부가 조금 깔끔해졌다.
+남은 App파일의 `<tbody>` 내부가 조금 깔끔해졌다.
 
 이제 ProductInCategory 내부에서 아래 그림처럼 컴포넌트를 분리해줄 것이다.
 
@@ -424,6 +424,246 @@ export default function App() {
 
 {% endcode %}
 
-분리한 컴포넌트들을 그림으로 그려보았다.
+이제 컴포넌트 분리에 익숙해졌으니 한 번에 최종적으로 아래 그림처럼 컴포넌트 분리를 해줄 것이다.
 
 ![컴포넌트 분리 완료](/images/final-component-separation.jpg)
+
+## 분리 완성된 코드
+
+{% code title="App.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import FilterableProductTable from "./components/FilterableProductTable";
+
+export default function App() {
+  return <FilterableProductTable />;
+}
+```
+
+{% endcode %}
+
+{% code title="/types/types.ts" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+interface Product {
+  category: string;
+  price: string;
+  stocked: boolean;
+  name: string;
+}
+
+export default Product;
+```
+
+{% endcode %}
+
+{% code title="/types/Product.ts" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "./types";
+
+const products: Product[] = [
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
+  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
+  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
+];
+
+export default products;
+```
+
+{% endcode %}
+
+{% code title="/components/FilterableProductTable.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import products from "../types/Product";
+import ProductTable from "./ProductTable";
+import SearchBar from "./SearchBar";
+
+export default function FilterableProductTable() {
+  return (
+    <div className="filtered-products-container">
+      <SearchBar />
+      <ProductTable products={products} />
+    </div>
+  );
+}
+```
+
+{% endcode %}
+
+{% code title="/components/SearchBox.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import CheckBoxField from "./CheckBoxField";
+
+export default function SearchBar() {
+  return (
+    <div className="search-bar">
+      <div>
+        <input type="text" placeholder="Search..." />
+      </div>
+      <CheckBoxField label="Only show products in stock" />
+    </div>
+  );
+}
+```
+
+{% endcode %}
+
+{% code title="/components/CheckBoxField.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import { useRef } from "react";
+
+export default function CheckBoxField({ label }: { label: string }) {
+  const id = useRef(`checkbox-${label}`.replace(/ /g, "-").toLowerCase());
+
+  return (
+    <div>
+      <input type="checkbox" id={id.current} />
+      <label htmlFor={id.current}>{label}</label>
+    </div>
+  );
+}
+```
+
+{% endcode %}
+
+{% code title="/components/ProductTable.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import ProductsInCategory from "./ProductsInCategory";
+
+import type Product from "../types/types";
+import selectCategories from "../util/selectCategories";
+
+export default function ProductTable({ products }: { products: Product[] }) {
+  const categories = selectCategories(products);
+
+  return (
+    <table className="product-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {categories.map((category) => (
+          <ProductsInCategory
+            key={category}
+            category={category}
+            products={products}
+          />
+        ))}
+      </tbody>
+    </table>
+  );
+}
+```
+
+{% endcode %}
+
+원래 ProductsTable 파일에서는 데이터 안에서 같은 카테고리 종류들을 가져오는 연산을 했었다.
+
+이것도 util 폴더로 분리해서 selectCategories 함수를 만들어주었다.
+
+{% code title="/util/selectCategories.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "../types/types";
+
+export default function selectCategories(products: Product[]): string[] {
+  return products.reduce((acc: string[], product: Product) => {
+    const { category } = product;
+    return acc.includes(category) ? acc : [...acc, category];
+  }, []);
+}
+```
+
+{% endcode %}
+
+{% code title="/components/ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "../types/types";
+import selectProducts from "../util/selectProducts";
+import ProductCategoryRow from "./ProductCategoryRow";
+import ProductRow from "./ProductRow";
+
+type ProductsInCategoryProps = {
+  category: string,
+  products: Product[],
+};
+
+export default function ProductsInCategory({
+  category,
+  products,
+}: ProductsInCategoryProps) {
+  const productsInCategory = selectProducts(products, category);
+  return (
+    <>
+      <ProductCategoryRow category={category} />
+      {productsInCategory.map((product) => (
+        <ProductRow key={product.name} product={product} />
+      ))}
+    </>
+  );
+}
+```
+
+{% endcode %}
+
+{% code title="/util/selectProducts.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "../types/types";
+
+export default function selectProducts(
+  items: Product[],
+  category: string
+): Product[] {
+  return items.filter((item) => item.category === category);
+}
+```
+
+{% endcode %}
+
+{% code title="/components/ProductCategoryRow.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+export default function ProductCategoryRow({ category }: { category: string }) {
+  return (
+    <tr>
+      <th colSpan={2}>{category}</th>
+    </tr>
+  );
+}
+```
+
+{% endcode %}
+
+{% code title="/components/ProductRow.tsx" overflow="wrap" lineNumbers="true" %}
+
+```javascript
+import type Product from "../types/types";
+
+type ProductRowProps = {
+  product: Product,
+};
+
+export default function ProductRow({ product }: ProductRowProps) {
+  return (
+    <tr>
+      <td>{product.name}</td>
+      <td>{product.price}</td>
+    </tr>
+  );
+}
+```
+
+{% endcode %}
