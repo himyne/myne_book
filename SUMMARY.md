@@ -13,5 +13,10 @@
   - [5. Parcel & ESLint](/WEEK1/parcel-eslint.md)
 
 - [WEEK 2](/WEEK2/README.md)
+
   - [JSX](/WEEK2/jsx.md)
   - [Virtual DOM](/WEEK2/virtualdom.md)
+
+- [WEEK 3](/WEEK3/README.md)
+  - [React Component](/WEEK3/component.md)
+  - [React State](/WEEK3/state.md)
