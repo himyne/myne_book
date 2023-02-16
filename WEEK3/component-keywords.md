@@ -66,8 +66,11 @@ URI를 작성할 때도 규칙이 있다.
 이렇게 읽기, 생성, 삭제, 수정이라는 행위 4가지로 분류되고 이것들을 메소드라고 하는 것이다.
 
 Create 생성 - POST
+
 Read 읽기 - GET
+
 Update 수정 - PUT | PATCH (전체적인 데이터 수정은 PUT, 일부 데이터 수정은 PATCH)
+
 Delete 삭제 - DELETE
 
 ## GraphQL은 왜 등장했는가?
