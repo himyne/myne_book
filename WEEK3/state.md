@@ -157,6 +157,8 @@ export default function FilterableProductTable({
 }
 ```
 
+{% endcode %}
+
 {% code title="/util/filterProducts.ts" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
