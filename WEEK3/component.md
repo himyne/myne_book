@@ -11,7 +11,7 @@
 
 백엔드에서 [JSON](https://himyne.github.io/deepdive/deepdive-43/#02-json) 형태의 데이터를 돌려주는 API를 제공한다고 가정한다.
 
-- [REST API](/WEEK3/rest-api-graphql.md)
+- REST API
 
   GET, POST, PUT/PATCH, DELETE (CRUD) => Resource 중심
 
@@ -19,7 +19,7 @@
 
   리소스는 위 그림과 같은 데이터를 의미한다.
 
-- [GraphQL](/WEEK3/rest-api-graphql.md)
+- GraphQL
 
   그래프 자료구조
 
@@ -671,7 +671,15 @@ type ProductRowProps = {
 export default function ProductRow({ product }: ProductRowProps) {
   return (
     <tr>
-      <td>{product.name}</td>
+      <td>
+        <span
+          style={{
+            color: product.stocked ? "#000" : "#F00",
+          }}
+        >
+          {product.name}
+        </span>
+      </td>
       <td>{product.price}</td>
     </tr>
   );
