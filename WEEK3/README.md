@@ -10,21 +10,21 @@
 
 - [x] REST API 와 GraphQL
   - [x] REST API 란 무엇인가
-  - [ ] GraphQL은 왜 등장했는가?
-  - [ ] REST API vs GraphQL
-- [ ] JSON
-- [ ] DSL(Domain-Specific Language)
-- [ ] 선언형 프로그래밍
-- [ ] 명령형 프로그래밍
-- [ ] SRP(단일 책임 원칙)
-- [ ] Atomic Design
-- [ ] React component 와 props
+  - [x] GraphQL은 왜 등장했는가?
+  - [x] REST API vs GraphQL
+- [x] JSON
+- [x] DSL(Domain-Specific Language)
+- [x] 선언형 프로그래밍
+- [x] 명령형 프로그래밍
+- [x] SRP(단일 책임 원칙)
+- [x] Atomic Design
+- [x] React component 와 props
 
 ## React State
 
-- [ ] React state란?
+- [x] React state란?
 - [ ] DRY 원칙
 - [ ] SSOT(Single Source of Truth)
 - [ ] useState
-- [ ] 1급 객체(first-class object)란?
+- [x] 1급 객체(first-class object)란?
 - [ ] Lifting State Up

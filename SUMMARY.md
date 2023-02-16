@@ -1,8 +1,8 @@
 # Table of contents
 
-## GitBook
+## DevNote
 
-- [📖 Myne's Gitbook](README.md)
+- [📖 Myne's DevNote](README.md)
 
 - [WEEK 1](/WEEK1/README.md)
 
@@ -19,4 +19,5 @@
 
 - [WEEK 3](/WEEK3/README.md)
   - [React Component](/WEEK3/component.md)
+  - [Keyword 정리 - 1](/WEEK3/component-keywords.md)
   - [React State](/WEEK3/state.md)

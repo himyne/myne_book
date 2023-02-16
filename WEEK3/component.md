@@ -11,7 +11,7 @@
 
 백엔드에서 [JSON](https://himyne.github.io/deepdive/deepdive-43/#02-json) 형태의 데이터를 돌려주는 API를 제공한다고 가정한다.
 
-- [REST API](/WEEK3/rest-api-graphql.md)
+- REST API
 
   GET, POST, PUT/PATCH, DELETE (CRUD) => Resource 중심
 
@@ -19,7 +19,7 @@
 
   리소스는 위 그림과 같은 데이터를 의미한다.
 
-- [GraphQL](/WEEK3/rest-api-graphql.md)
+- GraphQL
 
   그래프 자료구조
 
@@ -37,8 +37,6 @@ React는 선언형(HTML과 유사한 모양의 DSL을 사용)으로 UI를 구성
 
 UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 업데이트가 가능하다.
 
-+) 선언형 프로그래밍 공부
-
 ## 1단계 - UI를 컴포넌트 계층 구조로 쪼개기
 
 ### 리액트의 특징
@@ -52,7 +50,7 @@ UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 
 
 1. 단일 책임 원칙(SRP) : SOLID 원칙 중에서 첫번째 원칙
 
-   한가지 컴포넌트가 한가지 일만 하도록 하는 것이 좋다.
+   한가지 컴포넌트가 한가지 일만 하도록 하는 것.
 
 2. CSS
 
@@ -66,13 +64,67 @@ UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 
    </div>
    ```
 
-3. Atomic Design
+3. Atomic Design Pattern - 원자식 디자인 패턴
 
-4. Information Architecture
+![Atomic Design Pattern](/images/atomic-design-pattern.jpg)
 
-   => 실제로 가장 많이 쓴다, 백엔드를 아예 고치는 방법이다.
+위 그림 순서대로 원자 => 분자 => 조직 => 템플릿 => 페이지의 계층 구조로 폴더를 만드는 디자인 패턴이다.
 
-+) Information Architecture 공부, 컴포넌트를 나누는 기준 문서 더 찾아보기
+이 패턴을 사용하면 컴포넌트 계층을 의식하게 되면서 컴포넌트를 더 잘 나눌 수 있다.
+
+그런데 이 패턴의 단점은 프로그램의 덩치가 커진다면 애매한 부분이 많이 생겨서 또 팀 내 규칙을 만들어야 한다는 것이다.
+
+또한 의미와 관계가 없이 계층만으로 5단계를 나누는 것에 한계가 있다.
+
+4. Information Architecture(IA)
+
+   : 정보 구조도 => 실제로 가장 많이 쓴다
+
+   ![스포티파이 정보 구조도](/images/spotify-ia.jpg)
+
+## React Component & Props
+
+### 리액트 컴포넌트
+
+리액트 컴포넌트를 선언하는 방식에는 함수형이 있고 클래스형이 있다.
+
+함수 컴포넌트는 반환값만 있으면 되지만 클래스형 컴포넌트는 render 함수가 꼭 있어야 하고 그 안에서 보여줄 jsx를 반환해야 한다.
+
+함수 컴포넌트는 클래스 컴포넌트보다 선언하기가 훨씬 수월하고 자원도 덜 이용하고 빌드 후 배포 시에도 파일 크기가 더 작다.(큰 차이는 아님)
+
+리액트 공식 문서에서는 컴포넌트를 새로 작성할 때 함수 컴포넌트와 Hooks를 사용하도록 권장하고 있다.
+
+### Props
+
+props는 properties의 줄임말이다. 말 그대로 속성이라는 뜻이고 컴포넌트 속성을 설정할 때 사용한다.
+
+javascript에서 함수의 인자를 넘겨주는 것과 비슷하다.
+
+props를 따로 지정하지 않으면 아래처럼 defaultProps를 설정할 수 있다.
+
+```javascript
+const Component = (name) => {
+  return <div>이름: {name}</div>;
+};
+
+Component.defaultProps = {
+  name: "홍길동",
+};
+```
+
+### 디스트럭처링 할당으로 props 값 추출하기
+
+```javascript
+const Component = (person) => {
+  const { name, age } = person;
+  return (
+    <div>
+      이름: {name}
+      나이: {age}
+    </div>
+  );
+};
+```
 
 ## 2단계 - 정적 페이지 만들기
 
@@ -172,15 +224,15 @@ export default function App() {
 
 App 파일에서 지정해둔 Product 타입들도 따로 폴더를 만들어서 파일 분리 해준다.
 
-{% code title="./types/types.ts" overflow="wrap" lineNumbers="ture" %}
+{% code title="./types/Product.ts" overflow="wrap" lineNumbers="ture" %}
 
 ```javascript
-interface Product = {
-  category: string,
-  price: string,
-  stocked: boolean,
-  name: string,
-};
+interface Product {
+  category: string;
+  price: string;
+  stocked: boolean;
+  name: string;
+}
 
 export default Product;
 ```
@@ -190,7 +242,7 @@ export default Product;
 {% code title="ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "./types/types";
+import Product from "./types/Product";
 
 type ProductsInCategoryProps = {
   category: string,
@@ -231,7 +283,7 @@ ProductsInCategory.tsx 파일도 components 폴더에 따로 만들어준 뒤 �
 ```javascript
 import ProductsInCategory from "./components/ProductsInCategory";
 
-import type Product from "./types/types";
+import Product from "./types/Product";
 
 const products: Product[] = [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -292,7 +344,7 @@ export default function App() {
 {% code title="ProductRow.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 type ProductRowProps = {
   product: Product,
@@ -327,7 +379,7 @@ export default function ProductCategoryRow({ category }: { category: string }) {
 {% code title="ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 import ProductCategoryRow from "./ProductCategoryRow";
 import ProductRow from "./ProductRow";
 
@@ -365,7 +417,7 @@ export default function ProductsInCategory({
 ```javascript
 import ProductsInCategory from "./components/ProductsInCategory";
 
-import type Product from "./types/types";
+import Product from "./types/Product";
 
 const products: Product[] = [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -434,15 +486,29 @@ export default function App() {
 
 ```javascript
 import FilterableProductTable from "./components/FilterableProductTable";
+import Product from "./types/Product";
+
+const products: Product[] = [
+  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
+  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
+  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
+  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
+  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
+  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
+];
 
 export default function App() {
-  return <FilterableProductTable />;
+  return (
+    <div>
+      <FilterableProductTable products={products} />
+    </div>
+  );
 }
 ```
 
 {% endcode %}
 
-{% code title="/types/types.ts" overflow="wrap" lineNumbers="true" %}
+{% code title="/types/Product.ts" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
 interface Product {
@@ -457,33 +523,21 @@ export default Product;
 
 {% endcode %}
 
-{% code title="/types/Product.ts" overflow="wrap" lineNumbers="true" %}
-
-```javascript
-import type Product from "./types";
-
-const products: Product[] = [
-  { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
-  { category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit" },
-  { category: "Fruits", price: "$2", stocked: false, name: "Passionfruit" },
-  { category: "Vegetables", price: "$2", stocked: true, name: "Spinach" },
-  { category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin" },
-  { category: "Vegetables", price: "$1", stocked: true, name: "Peas" },
-];
-
-export default products;
-```
-
-{% endcode %}
-
 {% code title="/components/FilterableProductTable.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import products from "../types/Product";
 import ProductTable from "./ProductTable";
 import SearchBar from "./SearchBar";
 
-export default function FilterableProductTable() {
+import Product from "../types/Product";
+
+type FilterableProductTableProps = {
+  products: Product[],
+};
+
+export default function FilterableProductTable({
+  products,
+}: FilterableProductTableProps) {
   return (
     <div className="filtered-products-container">
       <SearchBar />
@@ -495,7 +549,7 @@ export default function FilterableProductTable() {
 
 {% endcode %}
 
-{% code title="/components/SearchBox.tsx" overflow="wrap" lineNumbers="true" %}
+{% code title="/components/SearchBar.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
 import CheckBoxField from "./CheckBoxField";
@@ -519,7 +573,11 @@ export default function SearchBar() {
 ```javascript
 import { useRef } from "react";
 
-export default function CheckBoxField({ label }: { label: string }) {
+type CheckBoxFieldProps = {
+  label: string,
+};
+
+export default function CheckBoxField({ label }: CheckBoxFieldProps) {
   const id = useRef(`checkbox-${label}`.replace(/ /g, "-").toLowerCase());
 
   return (
@@ -538,10 +596,15 @@ export default function CheckBoxField({ label }: { label: string }) {
 ```javascript
 import ProductsInCategory from "./ProductsInCategory";
 
-import type Product from "../types/types";
+import Product from "../types/Product";
+
 import selectCategories from "../util/selectCategories";
 
-export default function ProductTable({ products }: { products: Product[] }) {
+type ProductTableProps = {
+  products: Product[],
+};
+
+export default function ProductTable({ products }: ProductTableProps) {
   const categories = selectCategories(products);
 
   return (
@@ -575,7 +638,7 @@ export default function ProductTable({ products }: { products: Product[] }) {
 {% code title="/util/selectCategories.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 export default function selectCategories(products: Product[]): string[] {
   return products.reduce((acc: string[], product: Product) => {
@@ -590,10 +653,11 @@ export default function selectCategories(products: Product[]): string[] {
 {% code title="/components/ProductsInCategory.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
 import selectProducts from "../util/selectProducts";
 import ProductCategoryRow from "./ProductCategoryRow";
 import ProductRow from "./ProductRow";
+
+import Product from "../types/Product";
 
 type ProductsInCategoryProps = {
   category: string,
@@ -621,7 +685,7 @@ export default function ProductsInCategory({
 {% code title="/util/selectProducts.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 export default function selectProducts(
   items: Product[],
@@ -650,7 +714,7 @@ export default function ProductCategoryRow({ category }: { category: string }) {
 {% code title="/components/ProductRow.tsx" overflow="wrap" lineNumbers="true" %}
 
 ```javascript
-import type Product from "../types/types";
+import Product from "../types/Product";
 
 type ProductRowProps = {
   product: Product,
@@ -659,7 +723,15 @@ type ProductRowProps = {
 export default function ProductRow({ product }: ProductRowProps) {
   return (
     <tr>
-      <td>{product.name}</td>
+      <td>
+        <span
+          style={{
+            color: product.stocked ? "#000" : "#F00",
+          }}
+        >
+          {product.name}
+        </span>
+      </td>
       <td>{product.price}</td>
     </tr>
   );
