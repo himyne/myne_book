@@ -37,8 +37,6 @@ React는 선언형(HTML과 유사한 모양의 DSL을 사용)으로 UI를 구성
 
 UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 업데이트가 가능하다.
 
-+) 선언형 프로그래밍 공부
-
 ## 1단계 - UI를 컴포넌트 계층 구조로 쪼개기
 
 ### 리액트의 특징
@@ -52,7 +50,7 @@ UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 
 
 1. 단일 책임 원칙(SRP) : SOLID 원칙 중에서 첫번째 원칙
 
-   한가지 컴포넌트가 한가지 일만 하도록 하는 것이 좋다.
+   한가지 컴포넌트가 한가지 일만 하도록 하는 것.
 
 2. CSS
 
@@ -66,13 +64,67 @@ UI를 한번 선언해두면 안에 있는 내용이 바꼈을 때 자동으로 
    </div>
    ```
 
-3. Atomic Design
+3. Atomic Design Pattern - 원자식 디자인 패턴
 
-4. Information Architecture
+![Atomic Design Pattern](/images/atomic-design-pattern.jpg)
 
-   => 실제로 가장 많이 쓴다, 백엔드를 아예 고치는 방법이다.
+위 그림 순서대로 원자 => 분자 => 조직 => 템플릿 => 페이지의 계층 구조로 폴더를 만드는 디자인 패턴이다.
 
-+) Information Architecture 공부, 컴포넌트를 나누는 기준 문서 더 찾아보기
+이 패턴을 사용하면 컴포넌트 계층을 의식하게 되면서 컴포넌트를 더 잘 나눌 수 있다.
+
+그런데 이 패턴의 단점은 프로그램의 덩치가 커진다면 애매한 부분이 많이 생겨서 또 팀 내 규칙을 만들어야 한다는 것이다.
+
+또한 의미와 관계가 없이 계층만으로 5단계를 나누는 것에 한계가 있다.
+
+4. Information Architecture(IA)
+
+   : 정보 구조도 => 실제로 가장 많이 쓴다
+
+   ![스포티파이 정보 구조도](/images/spotify-ia.jpg)
+
+## React Component & Props
+
+### 리액트 컴포넌트
+
+리액트 컴포넌트를 선언하는 방식에는 함수형이 있고 클래스형이 있다.
+
+함수 컴포넌트는 반환값만 있으면 되지만 클래스형 컴포넌트는 render 함수가 꼭 있어야 하고 그 안에서 보여줄 jsx를 반환해야 한다.
+
+함수 컴포넌트는 클래스 컴포넌트보다 선언하기가 훨씬 수월하고 자원도 덜 이용하고 빌드 후 배포 시에도 파일 크기가 더 작다.(큰 차이는 아님)
+
+리액트 공식 문서에서는 컴포넌트를 새로 작성할 때 함수 컴포넌트와 Hooks를 사용하도록 권장하고 있다.
+
+### Props
+
+props는 properties의 줄임말이다. 말 그대로 속성이라는 뜻이고 컴포넌트 속성을 설정할 때 사용한다.
+
+javascript에서 함수의 인자를 넘겨주는 것과 비슷하다.
+
+props를 따로 지정하지 않으면 아래처럼 defaultProps를 설정할 수 있다.
+
+```javascript
+const Component = (name) => {
+  return <div>이름: {name}</div>;
+};
+
+Component.defaultProps = {
+  name: "홍길동",
+};
+```
+
+### 디스트럭처링 할당으로 props 값 추출하기
+
+```javascript
+const Component = (person) => {
+  const { name, age } = person;
+  return (
+    <div>
+      이름: {name}
+      나이: {age}
+    </div>
+  );
+};
+```
 
 ## 2단계 - 정적 페이지 만들기
 

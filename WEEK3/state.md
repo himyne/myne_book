@@ -12,66 +12,68 @@
 
 일관성 있고 효율적인 코드를 위해 DRY(Don't Repeat Yourself - 중복 배제) 원칙을 따르는 SSOT(Single Source Of Truth)를 만들면 좋다.
 
++) DRY 원칙과 SSOT 개념 보강 필요
+
 ## React에서 State란?
 
 state가 될 수 있는 몇가지 조건들이 존재한다.
 
-- 1. 변경되어야 한다. 변경되지 않는 것은 state로 다룰 가치가 없다.
+1. 변경되어야 한다. 변경되지 않는 것은 state로 다룰 가치가 없다.
 
-  예를 들어 앞서 만든 앱에서 products는 state로 다룰 가치가 있다.
-  품목이나 재고가 변화할 수 있기 때문이다.
+예를 들어 앞서 만든 앱에서 products는 state로 다룰 가치가 있다.
+품목이나 재고가 변화할 수 있기 때문이다.
 
-- 2. 부모 컴포넌트가 props를 통해 전달한다면 state가 아니다.
+2. 부모 컴포넌트가 props를 통해 전달한다면 state가 아니다.
 
-  함수의 인자로 전달되는 props들은 전달받기만 하는 것이기 때문에 당연히 state가 될 수 없다.
+함수의 인자로 전달되는 props들은 전달받기만 하는 것이기 때문에 당연히 state가 될 수 없다.
 
-- 3. 다른 state나 props를 이용해 계산 가능하다면 state가 아니다.
+3. 다른 state나 props를 이용해 계산 가능하다면 state가 아니다.
 
-  예를 들어 아래 코드를 보자
+예를 들어 아래 코드를 보자
 
-  ```javascript
-  export default function ProductTable({ products }: { products: Product[] }) {
-    const categories = selectCategories(products);
+```javascript
+export default function ProductTable({ products }: { products: Product[] }) {
+  const categories = selectCategories(products);
 
-    return (
-      <table className="product-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((category) => (
-            <ProductsInCategory
-              key={category}
-              category={category}
-              products={products}
-            />
-          ))}
-        </tbody>
-      </table>
-    );
-  }
-  ```
+  return (
+    <table className="product-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {categories.map((category) => (
+          <ProductsInCategory
+            key={category}
+            category={category}
+            products={products}
+          />
+        ))}
+      </tbody>
+    </table>
+  );
+}
+```
 
-  `categories`는 `products`를 props로 받아서 `selectCategories`라는 함수에 의해 계산되어진 변수이다.
+`categories`는 `products`를 props로 받아서 `selectCategories`라는 함수에 의해 계산되어진 변수이다.
 
-  그렇기 때문에 `categories`와 같은 애들도 state가 될 수 없다.
+그렇기 때문에 `categories`와 같은 애들도 state가 될 수 없다.
 
-  {% hint style="danger" %}
+{% hint style="danger" %}
 
-  categories 같이 state가 아닌 변수를 아래처럼 사용하지 말자!
+categories 같이 state가 아닌 변수를 아래처럼 사용하지 말자!
 
-  ```javascript
-  const [categories, setCategories] = useState<string[]>([]);
+```javascript
+const [categories, setCategories] = useState<string[]>([]);
 
-        useEffect(() => {
-          setCategories(selectCategories(products));
-        }, [products]);
-  ```
+      useEffect(() => {
+        setCategories(selectCategories(products));
+      }, [products]);
+```
 
-  {% endhint %}
+{% endhint %}
 
 이 앱에서 state로 다루어야 하는 것들은 아래 그림에서 표시한 검색창과 체크박스이다.
 
@@ -84,6 +86,10 @@ state가 될 수 있는 몇가지 조건들이 존재한다.
 바로 해당 상태에 의존적인 컴포넌트를 모두 포함하는 최상위 컴포넌트가 소유해야 한다. 이것을 '[Lifting State Up](https://ko.reactjs.org/docs/lifting-state-up.html)(상태 끌어올리기)'라고 한다.
 
 이제 본격적으로 코드에서 상태를 최상위 컴포넌트로 끌어올리는 작업을 시작해보자.
+
+## useState
+
++) 문서 내용 보강 필요
 
 ## 상태 끌어올리기(Lifting State Up)
 
