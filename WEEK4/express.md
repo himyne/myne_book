@@ -57,7 +57,7 @@ express는 코드를 고칠때마다 서버를 다시 켜야한다. 그래서 �
 
 컴퓨터끼리 네트워크 통신을 할 때 규약이다. 웹을 이용할 때 HTTP와 HTTPS 프로토콜을 자주 사용하는데 HTTPS는 HTTP에 보안을 더한 프로토콜이다.
 
-컴퓨터 원격 통신에는 SSH 프로토콜이, 이메일 통신을 할 때는 SMTP 프로토콜을 사용한다. 프로토콜 별로 다른 포트번호를 갖는다.
+컴퓨터 원격 통신에는 SSH 프로토콜을, 이메일 통신을 할 때는 SMTP 프로토콜을 사용한다. 프로토콜 별로 다른 포트번호를 갖는다.
 
 ### 도메인 주소
 
@@ -129,7 +129,7 @@ GET(읽기, 조회), POST(등록, 추가), PUT/PATCH(수정,업데이트), DELET
 - OPTIONS: 리소스가 지원하고 있는 메소드의 취득
 - CONNECT: 프록시 동작의 터널 접속을 변경
 
-1. GET - 읽기
+### 1. GET - 읽기
 
 ```javascript
 GET / product / 1;
@@ -141,36 +141,38 @@ GET / product / 1;
 - GET은 캐싱이 가능하여 데이터를 한번 더 조회해도 저장한 값을 보여주기 때문에 POST보다 속도가 빠르다.
 - GET 요청은 parameter / query 두 가지의 방식이 있다.
 
-  a. 파라미터로 받기
+### GET 요청 방식
 
-  주소창에 localhost:3000/user/minhye
+1. 파라미터로 받기
 
-  ```javascript
-  app.get("/user/:id", (req, res) => {
-    const q = req.params;
-    console.log(q.id); // minhye가 출력
+주소창에 localhost:3000/user/minhye 작성
 
-    res.json({ userid: q.id }); // {"userid": "minhye"}
-  });
-  ```
+```javascript
+app.get("/user/:id", (req, res) => {
+  const q = req.params;
+  console.log(q.id); // minhye가 출력
 
-  b. 쿼리로 받기
+  res.json({ userid: q.id }); // {"userid": "minhye"}
+});
+```
 
-  주소창에 localhost:3000/user/asdf?q=minhye&age=26/
+2. 쿼리로 받기
 
-  ?를 기점으로 key=value 형태로 데이터를 표현한다.
+주소창에 localhost:3000/user/asdf?q=minhye&age=26/ 작성
 
-  ```javascript
-  app.get("/user/:id", (req, res) => {
-    const q = req.query;
-    console.log(q); // minhye
-    console.log(q.age); // 26
+?를 기점으로 key=value 형태로 데이터를 표현한다.
 
-    res.json({ userid: q.q, age: q.age }); // {"userid": "minhye", "age": "26"}
-  });
-  ```
+```javascript
+app.get("/user/:id", (req, res) => {
+  const q = req.query;
+  console.log(q); // minhye
+  console.log(q.age); // 26
 
-2. POST - 생성
+  res.json({ userid: q.q, age: q.age }); // {"userid": "minhye", "age": "26"}
+});
+```
+
+### 2. POST - 생성
 
 ```javascript
 POST /product
@@ -182,7 +184,7 @@ Content-Type: "application/json"
 - 데이터 생성을 요청 시 요청 몸체(body)에 데이터를 같이 보내야 한다. 요청 몸체에 데이터 정보가 들어있고 URL에는 없기 때문에 조금 더 안전하다.
 - 요청에 성공적으로 응답하면 몸체에 저장한 데이터와 함께 성공했다는 응답을 보낸다.
 
-3. PUT - 교체 / PATCH - 수정
+### 3. PUT - 교체 / PATCH - 수정
 
 - 특정 리소스 전체를 교체할 때 사용한다.
 - 요청 시 요청 몸체(body)에 교체할 데이터를 같이 보내야 한다.
@@ -194,7 +196,7 @@ body : {date : "update example"}
 Content-Type : "application/json"
 ```
 
-4. DELETE - 삭제
+### 4. DELETE - 삭제
 
 - 데이터를 삭제할 때 사용한다.
 - 요청 시 요청 몸체에 보내지 않아도 된다. URL에 어떠한 데이터를 삭제할지 파라미터로 받는다.
