@@ -24,5 +24,8 @@
   - [React State](/WEEK3/state.md)
 
 - [WEEK 4](/WEEK4/README.md)
-  - [Express](/WEEK4/express.md)
-  - [Fetch & CORS](/WEEK4/fetch-cors.md)
+  - [🖥️ Express](/WEEK4/express.md)
+  - [🖥️ Fetch & CORS](/WEEK4/fetch-cors.md)
+  - [🔑Promise](/WEEK4/promise.md)
+  - [🔑Fetch API](/WEEK4/fetch-api.md)
+  - [🔑ReableStream](/WEEK4/readablestream.md)
