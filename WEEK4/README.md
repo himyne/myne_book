@@ -13,11 +13,11 @@
 
 ### 2. Fetch API & CORS
 
-- [ ] Fetch API 란
-- [ ] Promise
-- [ ] ReableStream
-- [ ] Unicode
-- [ ] CORS 란
+- [x] Fetch API 란
+- [x] Promise
+- [x] ReableStream
+- [x] Unicode
+- [x] CORS 란
 
 ### 3. React의 Hook
 

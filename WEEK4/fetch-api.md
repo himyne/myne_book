@@ -12,7 +12,7 @@ const fetchResposePromise = fetch(resource, [, init]);
 
 인자 resource에는 우리가 데이터를 요청할 URL을 넣어주면 된다. 기본적으로는 GET요청으로 동작을 한다.
 
-이 fetch함수에 데이터를 넣어 요청하면 반환되는 값은 **"Promise"**데이터 타입이고 응답 객체를 돌려준다. 그러므로 fetch를 이해하기 전에 Promise를 먼저 알아야 한다.
+이 fetch함수에 데이터를 넣어 요청하면 반환되는 값은 "Promise" 데이터 타입이고 응답 객체를 돌려준다. 그러므로 fetch를 이해하기 전에 Promise를 먼저 알아야 한다.
 
 ![프로미스 응답 객체](/images/promise-object.md.jpg)
 

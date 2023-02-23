@@ -236,3 +236,13 @@ export default function App({ products }: { products: Product[] }) {
 {% endcode %}
 
 이렇게 백엔드와 프론트엔드를 연결해서 사용하는 것이다.
+
+## Unicode 추가 키워드 정리
+
+Unicode는 전 세계의 모든 문자를 표현하기 위한 문자 집합이다.
+
+TextDecoder는 이러한 Unicode 문자열을 다양한 인코딩 방식으로 인코딩된 바이트 시퀀스로 변환하는 JavaScript 내장 객체이다.
+
+이를 통해 데이터를 수신하고 디코딩하여 웹 애플리케이션에서 Unicode 문자열로 처리할 수 있다.
+
+예를 들어, fetch API로 받아온 HTTP 응답에서 데이터를 읽어올 때, 인코딩된 데이터를 Unicode 문자열로 디코딩하기 위해 TextDecoder를 사용할 수 있다.
