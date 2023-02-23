@@ -28,4 +28,4 @@
   - [🖥️ Fetch & CORS](/WEEK4/fetch-cors.md)
   - [🔑Promise](/WEEK4/promise.md)
   - [🔑Fetch API](/WEEK4/fetch-api.md)
-  - [🔑ReableStream](/WEEK4/reablestream.md)
+  - [🔑ReableStream](/WEEK4/readablestream.md)
