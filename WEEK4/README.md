@@ -21,19 +21,19 @@
 
 ### 3. React의 Hook
 
-- [ ] React Hook 이란
-- [ ] Hooks
-  - [ ] useState
-  - [ ] useEffect
-  - [ ] useContext
-  - [ ] useRef
-  - [ ] useLayoutEffect
-- [ ] React StrictMode 란
+- [x] React Hook 이란
+- [x] Hooks
+  - [x] useState
+  - [x] useEffect
+  - [x] useContext
+  - [x] useRef
+  - [x] useLayoutEffect
+- [x] React StrictMode 란
 
 ### 4. useRef & Custom Hook
 
-- [ ] useRef
-- [ ] Hook의 규칙
+- [x] useRef
+- [x] Hook의 규칙
 
 ### 5. usehooks-ts
 
