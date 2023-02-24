@@ -37,13 +37,13 @@
 
 ### 5. usehooks-ts
 
-- [ ] usehooks-ts
-  - [ ] useBoolean
-  - [ ] useEffectOnce
-  - [ ] useFetch
-  - [ ] useInterval
-  - [ ] useEventListener
-  - [ ] useLocalStorage
-  - [ ] useDarkMode
-- [ ] swr
-- [ ] react-query
+- [x] usehooks-ts
+  - [x] useBoolean
+  - [x] useEffectOnce
+  - [x] useFetch
+  - [x] useInterval
+  - [x] useEventListener
+  - [x] useLocalStorage
+  - [x] useDarkMode
+- [x] swr
+- [x] react-query
