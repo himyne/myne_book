@@ -12,7 +12,7 @@
 
 > End To End 테스트의 약자로 애플리케이션의 흐름을 처음부터 끝까지 테스트하는 것을 의미한다.
 
-실제 사용자가 애플리케이션을 사용하면 것과 똑같이 시나리오를 작성하고 그에 맞는 테스트 코드를 작성하여 테스트하는 것이다.
+실제 사용자가 애플리케이션을 사용하는 것과 똑같이 시나리오를 작성하고 그에 맞는 테스트 코드를 작성하여 테스트하는 것이다.
 
 테스트 피라미드의 가장 꼭대기에 위치하여 이 테스트를 통과하면 애플리케이션의 무결성을 증명할 수 있다.
 
@@ -20,15 +20,15 @@
 
 ## Headless Chrome
 
-크롬은 GUI 없이 코드를 구현하는 헤드리스 자동화 테스트를 지원한다. Linux, macOS, Windows에서 사용할 수 있다.
+크롬은 GUI(Graphical User Interface) 없이 코드를 구현하는 헤드리스 자동화 테스트를 지원한다. Linux, macOS, Windows에서 사용할 수 있다.
 
 ### Headless Browser란?
 
 > 사용자 인터페이스가 없는 웹 브라우저로, 다른 브라우저와 동일하지만 화면에서는 아무것도 볼 수 없다. (백그라운드에서 작동하는 브라우저)
 
-이 장에서 배울 Playwright도 HEADLESS 브라우저를 기반으로 한 것이다.
+이 장에서 배울 Playwright도 Headless 브라우저를 기반으로 한 것이다.
 
-헤드리스 브라우저는 원래 우분투, Linux와 같은 GUI가 없는 경우에 명령 프롬프트를 통해 사용되고 더불어 테스팅에서도 유용하게 사용된다.
+헤드리스 브라우저는 원래 우분투, Linux와 같은 GUI가 없는 경우에 명령 프롬프트를 통해 사용되고 더불어 우리가 공부하고 있는 테스팅에서도 유용하게 사용된다.
 
 ### Headless 브라우저의 장점
 
@@ -43,9 +43,7 @@ CI-true npx playwright test
 
 ## Puppeteer
 
-Puppeteer 또한 E2E 테스트를 위해 만들어진 테스팅 도구이다. Playwright 이전에 Headless Chrome을 기반으로 만들어졌다.
-
-chrome과 Chromium 브라우저에 특화되어 있다.
+Puppeteer 또한 E2E 테스트를 위해 만들어진 테스팅 도구이다. Playwright 이전에 Headless Chrome을 기반으로 만들어졌다. chrome과 Chromium 브라우저에 특화되어 있다.
 
 > Chromium이란? : 구글에서 개발한 오픈소스 웹 브라우저 프로젝트이다. Opera, Microsoft Edge, Vivaldi, Brave 등이 Chromium 기반으로 작동함
 
@@ -55,7 +53,7 @@ puppeteer는 Google이 개발하고 유지하고 관리하는 반면 playwright�
 
 ## Playwright 사용하기
 
-Playwright은 테스트 도구는 아니고 api만 제공한다. 테스트 러너까지 제공해서 굉장히 깔끔하게 쓸 수 있다.
+Playwright은 테스팅을 위한 api들을 제공한다. 테스트 러너까지 제공해서 굉장히 깔끔하게 쓸 수 있다.
 
 크롤링할 때 쓰기도 하는데 우리는 테스트를 할거니까 개발 환경으로 설치한다. eslint 플러그인도 같이 설치한다.
 
@@ -65,7 +63,7 @@ npm i -D @playwright/test eslint-plugin-playwright
 
 최종적인 진짜 테스트이기 때문에 express 서버도 켜놓아야 한다.
 
-그리고 config 파일도 만들어야 한다.
+그리고 playwright config 파일도 만들어야 한다.
 
 ```javascript
 // playwright.config.ts
