@@ -36,7 +36,15 @@
   - [🖥️usehooks-ts](/WEEK4/usehooks-ts.md)
 
 - [WEEK 5](/WEEK5/README.md)
+
   - [TDD](/WEEK5/tdd.md)
   - [React Testing Libaray](/WEEK5/react-testing-library.md)
   - [MSW](/WEEK5/msw.md)
   - [Playwright](/WEEK5/playwright.md)
+
+- [WEEK 6](/WEEK6/README.md)
+
+  - [External Store](/WEEK6/external-store.md)
+  - [TSyringe](/WEEK6/tsyringe.md)
+  - [Redux 따라하기](/WEEK6/redux.md)
+  - [usestore-ts](/WEEK6/usestore-ts.md)
