@@ -1,5 +1,10 @@
 # TSyringe
 
+- [ ] TSyringe
+- [ ] 의존성 주입(Dependency Injection)
+- [ ] reflect-metadata
+- [ ] sington (싱글톤)
+
 주사기 - 타입스크립트에서 사용하는 의존성 주입 도구(DI)
 
 컴포넌트(프로그램을 구성하는 요소)들을 미묘하게 조립해야하는 상황에 활용된다.
@@ -94,11 +99,9 @@ export default function useCounterStore() {
 import { useState, useCallback } from "react";
 
 export default function useForceUpdate() {
-  const [state, setState] = useState(0);
+  const [, setState] = useState({});
 
-  return useCallback(() => {
-    setState({});
-  }, []);
+  return useCallback(() => setState({}), []);
 }
 ```
 
