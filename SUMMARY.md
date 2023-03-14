@@ -51,7 +51,7 @@
 
 - [WEEK 7](/WEEK7/README.md)
 
-  - [Router](/WEEK7/router.md)
-  - [Routes](/WEEK7/routes.md)
   - [Routing](/WEEK7/routing.md)
+  - [Routes](/WEEK7/routes.md)
+  - [Router](/WEEK7/router.md)
   - [Navigation](/WEEK7/navigation.md)
