@@ -1,9 +1,6 @@
 # Routing
 
-- [ ] Location
-- [ ] pathname
-
-어떠한 주소로 들어가느냐에 따라 다른 내용이 나온다.
+라우팅으로 페이지를 이동하는 법을 배운다.
 
 ## Location
 
