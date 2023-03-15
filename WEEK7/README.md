@@ -2,23 +2,23 @@
 
 ## Routing
 
-- [ ] HTML DOM API
-  - [ ] Location
-  - [ ] pathname
+- [x] HTML DOM API
+  - [x] Location
+  - [x] pathname
 
 ## Routes
 
-- [ ] 라우터란?
-- [ ] React Router
-  - [ ] Browser Router
-  - [ ] Route
-  - [ ] Memory Router
+- [x] 라우터란?
+- [x] React Router
+  - [x] Browser Router
+  - [x] Route
+  - [x] Memory Router
 
 ## Router
 
-- [ ] ReactRouter - RouterProvider
+- [x] ReactRouter - RouterProvider
 
 ## Navigation
 
-- [ ] Web APIs - History
-- [ ] React Router - NavLink, Link, Navigate, useNavigate
+- [x] Web APIs - History
+- [x] React Router - NavLink, Link, Navigate, useNavigate

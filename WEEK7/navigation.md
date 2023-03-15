@@ -1,5 +1,19 @@
 # navigation
 
+## Web APIs - History
+
+DOM Window 객체는 history 객체를 통해 browser의 session 기록을 제공한다.
+
+브라우저에서 뒤로 이동하거나 앞으로 이동하는 것을 가능하게 하는 메서드와 프로퍼티들이 있다.
+
+History 인터페이스는 현재 페이지가 로드된 탭을 조작할 수 있다.
+
+history 객체는 스택과 비슷한 형태로 되어있는데 pushState() 메서드와 replaceState() 메서드는 히스토리를 수정하고 추가할 수 있다.
+
+history 객체를 사용하면 SPA(Single Page Application)에서 브라우저의 뒤로가기와 같은 동작을 구현할 수 있다.
+
+> SPA: SPA는 Single Page Application의 약어로, 한 개의 웹 페이지로 구성된 애플리케이션을 의미한다. 즉, 전통적인 서버 사이드 렌더링 방식이 아닌, 클라이언트 측에서 렌더링이 이루어지는 방식을 말한다. 초기 로딩 시 모든 리소스를 다운로드하고, 이후에는 필요한 데이터만 서버로부터 비동기식으로 가져와 동적으로 페이지를 갱신한다. 이러한 방식으로, 서버와의 통신을 최소화하고 빠른 페이지 로딩과 부드러운 사용자 경험을 제공할 수 있다.
+
 ## History.pushState()
 
 원래는 url 앞에 #을 붙여서 사용했었는데 History.pushState()라는 메서드를 사용하면 브라우저에서 지원이 된다.
@@ -41,6 +55,10 @@ export default function Header() {
 
 ## Link
 
+<Link>는 사용자가 클릭하거나 탭하여 다른 페이지로 이동할 수 있게 해주는 요소이다. 리액트 라우터 돔에서 <Link>는 링크하는 리소스를 가리키는 실제 href가 있는 접근 가능한 <a> 엘리먼트를 렌더링한다.
+
+상대 경로 <Link to> 값(슬래시(/)로 시작하지 않는)은 부모 경로에 상대적으로 해석되며, 이는 해당 <Link>를 렌더링 한 경로에 매칭된 URL 경로를 기반으로 구축된다.
+
 ```javascript
 import { Link } from "react-router-dom";
 
@@ -63,6 +81,8 @@ export default function Header() {
 ```
 
 ## NavLink
+
+<NavLink>는 "active" 또는 "pending" 여부를 알 수 있는 특별한 종류의 <Link>이다. 이는 현재 선택된 탭을 표시하려는 이동 경로 또는 탭 집합과 같은 탐색 메뉴를 만들 때 유용하다.
 
 ```javascript
 import { NavLink } from "react-router-dom";
@@ -87,7 +107,7 @@ export default function Header() {
 
 NavLink를 이용하면 `<a aria-current="page" class="active" href="/">Home</a>` 이와 같이 class를 입력해주지 않았는데 class가 active하다는 생긴다. 클릭된 링크가 active가 되는 것이다.
 
-이를 이용해서 스타일도 응용해서 처리해줄 수 있다.
+기본적으로 active 클래스는 active 상태일 때 <NavLink> 컴포넌트에 추가되므로 CSS를 사용하여 스타일을 지정할 수 있다.
 
 ```html
 <!DOCTYPE html>
@@ -111,6 +131,8 @@ NavLink를 이용하면 `<a aria-current="page" class="active" href="/">Home</a>
 
 ## Navigate
 
+<Navigate> 요소는 렌더링될 때 현재 위치를 변경한다. 이 요소는 useNavigate를 둘러싼 컴포넌트 wrapper이며 프로퍼티와 동일한 인수를 모두 허용한다.
+
 무조건 홈으로 이동하게 하는 로그아웃 페이지를 Navigate를 이용하여 만들 수 있다.
 
 ```javascript
@@ -122,8 +144,6 @@ export default function LogoutPage() {
 ```
 
 ```javascript
-// 테스트에서 route 정보를 필요로 하므로 분리하는 것이 좋다.
-
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import LogoutPage from "./pages/LogoutPage";

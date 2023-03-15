@@ -2,11 +2,19 @@
 
 라우팅으로 페이지를 이동하는 법을 배운다.
 
+라우팅(routing) : 사용자가 접근한 URL에 따라서 파일을 로드하는 것
+
+## HTML DOM API
+
+HTML DOM API를 이용하면 DOM 요소에 접근 및 제어가 가능하고 Form 데이터라던지, 브라우저 히스토리에 대한 정보 접근 등이 가능하다.
+
+이 중에서 우리는 History API 의 location이라는 인터페이스를 사용하면 url을 알 수 있다. document.location이나 window.location을 통해 접근할 수 있다.
+
 ## Location
 
 Window.location 프로퍼티에 접근하면 읽기 전용인 loction 객체를 얻어올 수 있다.
 
-이 객체는 현재 문서의 위치 정보를 담고 있다.
+이 객체는 현재 문서의 사용자가 어디에 있는지에 대한 위치 정보를 담고 있다.
 
 ```text
 >window.location
@@ -125,4 +133,4 @@ export default function HomePage() {
 }
 ```
 
-App.tsx 파일의 코드들을 리액트 라우터를 이용하여 바꿔준다.
+다음 강의에서는 App.tsx 파일의 코드들을 리액트 라우터를 이용하여 바꿔줄 것이다.

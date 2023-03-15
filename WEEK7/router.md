@@ -61,11 +61,18 @@ import routes from "./routes";
 const router = createBrowserRouter(routes);
 
 export default function App() {
+  // 모든 라우터 객체가 RouterProvider의 props로 전달되어 앱을 렌더링하고 나머지 API를 활성화한다.
   return <RouterProvider router={router} />;
 }
 ```
 
-+) RouterProvider, createBrowserRouter 추가 공부
+## RouterProvider & createBrowserRouter
+
+createBrowserRouter는 BrowserRouter를 생성하는 함수이다.
+
+이 함수를 사용하여 BrowserRouter 인스턴스를 만들면, 라우트를 정의하고 RouterProvider를 사용하여 React 애플리케이션에서 라우팅을 관리할 수 있다.
+
+createBrowserRouter는 일반적으로 RouterProvider와 함께 사용된다. RouterProvider는 createBrowserRouter를 호출하여 생성한 BrowserRouter 인스턴스를 사용하여 라우팅을 처리한다.
 
 Layout.tsx
 
@@ -88,8 +95,6 @@ export default function Layout() {
 }
 ```
 
-+) Outlet 추가 공부 필요
-
 routes.tsx
 
 ```javascript
@@ -99,6 +104,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import Layout from "./Layout";
 
+//이 라우트가 App 컴포넌트에서 createBrowserRouter의 인자로 들어갈 부분이다.
 const routes = [
   {
     element: <Layout />,
