@@ -55,9 +55,9 @@ export default function Header() {
 
 ## Link
 
-<Link>는 사용자가 클릭하거나 탭하여 다른 페이지로 이동할 수 있게 해주는 요소이다. 리액트 라우터 돔에서 <Link>는 링크하는 리소스를 가리키는 실제 href가 있는 접근 가능한 <a> 엘리먼트를 렌더링한다.
+`<Link>`는 사용자가 클릭하거나 탭하여 다른 페이지로 이동할 수 있게 해주는 요소이다. 리액트 라우터 돔에서 `<Link>`는 링크하는 리소스를 가리키는 실제 href가 있는 접근 가능한 `<a>` 엘리먼트를 렌더링한다.
 
-상대 경로 <Link to> 값(슬래시(/)로 시작하지 않는)은 부모 경로에 상대적으로 해석되며, 이는 해당 <Link>를 렌더링 한 경로에 매칭된 URL 경로를 기반으로 구축된다.
+상대 경로 `<Link to>` 값(슬래시(/)로 시작하지 않는)은 부모 경로에 상대적으로 해석되며, 이는 해당 `<Link>`를 렌더링 한 경로에 매칭된 URL 경로를 기반으로 구축된다.
 
 ```javascript
 import { Link } from "react-router-dom";
@@ -82,7 +82,7 @@ export default function Header() {
 
 ## NavLink
 
-<NavLink>는 "active" 또는 "pending" 여부를 알 수 있는 특별한 종류의 <Link>이다. 이는 현재 선택된 탭을 표시하려는 이동 경로 또는 탭 집합과 같은 탐색 메뉴를 만들 때 유용하다.
+`<NavLink>`는 "active" 또는 "pending" 여부를 알 수 있는 특별한 종류의 `<Link>`이다. 이는 현재 선택된 탭을 표시하려는 이동 경로 또는 탭 집합과 같은 탐색 메뉴를 만들 때 유용하다.
 
 ```javascript
 import { NavLink } from "react-router-dom";
@@ -107,7 +107,7 @@ export default function Header() {
 
 NavLink를 이용하면 `<a aria-current="page" class="active" href="/">Home</a>` 이와 같이 class를 입력해주지 않았는데 class가 active하다는 생긴다. 클릭된 링크가 active가 되는 것이다.
 
-기본적으로 active 클래스는 active 상태일 때 <NavLink> 컴포넌트에 추가되므로 CSS를 사용하여 스타일을 지정할 수 있다.
+기본적으로 active 클래스는 active 상태일 때 `<NavLink>` 컴포넌트에 추가되므로 CSS를 사용하여 스타일을 지정할 수 있다.
 
 ```html
 <!DOCTYPE html>
@@ -131,7 +131,7 @@ NavLink를 이용하면 `<a aria-current="page" class="active" href="/">Home</a>
 
 ## Navigate
 
-<Navigate> 요소는 렌더링될 때 현재 위치를 변경한다. 이 요소는 useNavigate를 둘러싼 컴포넌트 wrapper이며 프로퍼티와 동일한 인수를 모두 허용한다.
+`<Navigate>` 요소는 렌더링될 때 현재 위치를 변경한다. 이 요소는 useNavigate를 둘러싼 컴포넌트 wrapper이며 프로퍼티와 동일한 인수를 모두 허용한다.
 
 무조건 홈으로 이동하게 하는 로그아웃 페이지를 Navigate를 이용하여 만들 수 있다.
 

@@ -50,9 +50,9 @@ Routes : 자식 route들을 구성하고 있는 단위이다.
 
 - Route Config - 현재 위치에 대해 순위를 매기고 일치시킬(중첩 포함) 라우트 객체의 트리로, 라우트 일치 분기를 생성합니다.
 
-- Route(라우트) - 일반적으로 { path , element } 또는 <Route path element> 형태의 개체 또는 라우트 요소입니다. path는 path pattern입니다. path pattern이 현재 URL과 일치하면 요소가 렌더링됩니다.
+- Route(라우트) - 일반적으로 { path , element } 또는 `<Route path element>` 형태의 개체 또는 라우트 요소입니다. path는 path pattern입니다. path pattern이 현재 URL과 일치하면 요소가 렌더링됩니다.
 
-- Route Element - 또는 <Route>. 이 요소의 props는 <Route>에 의해 라우트를 생성하기 위해 읽히지만, 그렇지 않으면 아무 작업도 수행하지 않습니다.
+- Route Element - 또는 `<Route>`. 이 요소의 props는 `<Route>`에 의해 라우트를 생성하기 위해 읽히지만, 그렇지 않으면 아무 작업도 수행하지 않습니다.
 
 ```javascript
 <Route path="/" element={<HomePage />} />
@@ -123,7 +123,7 @@ App 컴포넌트는 나중에 테스트를 해야 하기 때문에 BrowserRouter
 
 > React Router에서 제공하는 라우터 중 하나로, HTML5 History API를 사용하여 브라우저의 URL과 상호작용을 한다.
 
-<BrowserRouter>는 URL을 사용하여 브라우저의 주소창에 현재 위치를 저장하고 브라우저에 내장된 history 스택을 사용하여 탐색한다.
+`<BrowserRouter>`는 URL을 사용하여 브라우저의 주소창에 현재 위치를 저장하고 브라우저에 내장된 history 스택을 사용하여 탐색한다.
 
 => 보통 최상위 컴포넌트인 App에서 선언해야함.
 
@@ -162,10 +162,10 @@ main();
 
 ## MemoryRouter
 
-<MemoryRouter>는 내부적으로 배열에 위치를 저장한다. <BrowserHistory> 및 <HashHistory>와 달리 브라우저의 히스토리 스택과 같이 외부 소스에 연결되지 않습니다. 따라서 테스트와 같이 히스토리 스택을 완벽하게 제어해야 하는 시나리오에 이상적이다.
+`<MemoryRouter>`는 내부적으로 배열에 위치를 저장한다. `<BrowserHistory>` 및 `<HashHistory>`와 달리 브라우저의 히스토리 스택과 같이 외부 소스에 연결되지 않습니다. 따라서 테스트와 같이 히스토리 스택을 완벽하게 제어해야 하는 시나리오에 이상적이다.
 
-<MemoryRouter initialEntries>의 기본값은 ["/"](루트/URL에 있는 단일 항목)이다.
-<MemoryRouter initialIndex>는 초기 항목의 마지막 인덱스를 기본값으로 한다.
+`<MemoryRouter initialEntries>`의 기본값은 `["/"]`(루트/URL에 있는 단일 항목)이다.
+`<MemoryRouter initialIndex>`는 초기 항목의 마지막 인덱스를 기본값으로 한다.
 
 App.test.tsx
 
