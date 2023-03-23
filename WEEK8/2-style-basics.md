@@ -31,7 +31,7 @@ div나 span처럼 의미가 없는 태그들은 태그 이름만 보고 어떤 �
 
 시맨틱 태그를 사용함으로써 검색엔진최적화(SEO), 시각장애 사용자의 스크린 리더, 기업 및 커뮤니티에서 데이터를 공유하고 재사용할 수 있다는 장점이 있다.
 
-![웹사이트 구조](/images/web-structure.png)
+![웹사이트 구조](/images/web-structure.jpg)
 
 ### 1. Meta Data
 
@@ -72,7 +72,7 @@ div나 span처럼 의미가 없는 태그들은 태그 이름만 보고 어떤 �
 - `<heading>` : heading은 상하관계를 잘 고려해서 작성해야한다.
 - `<aside>` : 사이드바 또는 콜아웃 상자로 사용됨
 
-![토스 개발팀 문서 heading 예시](/images/toss_heading.webp)
+![토스 개발팀 문서 heading 예시](/images/toss_heading.jpg)
 
 ### 3. 자주 사용되는 시맨틱 태그들
 
