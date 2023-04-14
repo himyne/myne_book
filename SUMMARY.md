@@ -67,4 +67,4 @@
 
 - [WEEK 9-10 쇼핑몰 실습](/WEEK9-WEEK10/README.md)
 
-  -[키워드 정리](/WEEK9-WEEK10/note.md)
+  - [키워드 정리](/WEEK9-WEEK10/note.md)
