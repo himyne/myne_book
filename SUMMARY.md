@@ -64,3 +64,7 @@
   - [Styled Components](/WEEK8/4-styled-components.md)
   - [props와 attrs](/WEEK8/5-props-attrs.md)
   - [Global Style](/WEEK8/6-global-style.md)
+
+- [WEEK 9-10 쇼핑몰 실습](/WEEK9-WEEK10/README.md)
+
+  -[키워드 정리](/WEEK9-WEEK10/note.md)
